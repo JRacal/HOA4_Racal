@@ -1,0 +1,27 @@
+---
+# tasks file for roles/Icinga2
+
+- name: Installation of Icinga2 in Ubuntu
+  apt:
+    name:
+      - icinga2
+      - monitoring-plugins
+      - icinga2-ido-mysql
+    state: latest
+    update_cache: yes
+  when: ansible_distribution == "Ubuntu"
+
+- name: Enable and start the Systemctl of Icinga2 in Ubuntu
+  service:
+    name: icinga2
+    enabled: yes
+    state: started
+  when: ansible_distribution == "Ubuntu"
+
+- name: Installation of Icinga2 in CentOS
+  dnf:
+    name:
+      - https://packages.icinga.com/epel/icinga-rpm-release-8-latest.noarch.rpm
+    state: latest
+    update_cache: yes
+  when: ansible_distribution == "CentOS"

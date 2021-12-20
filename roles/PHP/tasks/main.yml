@@ -1,0 +1,41 @@
+---
+# tasks file for roles/PHP
+
+- name: Installation of PHP in Ubuntu
+  apt:
+    name:
+      - software-properties-common
+      - php
+      - php-curl
+      - php-gd
+      - php-mbstring
+      - php-xml
+      - php-xmlrpc
+      - php-soap
+      - php-intl
+      - php-zip
+      - php-cli
+      - php-mysql
+      - php-gmp
+      - php-imagick
+    state: latest
+    update_cache: yes
+  when: ansible_distribution == "Ubuntu"
+
+- name: installation of PHP in CentOS
+  dnf:
+    name:
+      - php
+      - php-curl
+      - php-gd
+      - php-mbstring 
+      - php-xml
+      - php-xmlrpc
+      - php-soap
+      - php-intl
+      - php-zip
+      - php-cli
+      - php-gmp
+    state: latest
+    update_cache: yes
+  when: ansible_distribution == "CentOS"

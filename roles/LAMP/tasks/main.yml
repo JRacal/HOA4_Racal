@@ -1,0 +1,34 @@
+---
+# tasks file for roles/LAMP
+
+- name: Installation of LAMP in Ubuntu
+  apt:
+    name:
+      - apache2
+      - libapache2-mod-php
+    state: latest
+    update_cache: yes
+  when: ansible_distribution == "Ubuntu"
+
+- name: Set Apache2 to Automatically start in Ubuntu
+  service: 
+    name: apache2
+    enabled: yes
+    state: started
+  when: ansible_distribution == "Ubuntu"
+
+- name: installation of LAMP in Centos
+  dnf:
+    name:
+      - httpd
+      - php
+    state: latest
+    update_cache: yes
+  when: ansible_distribution == "CentOS"
+
+- name: Set httpd to Automatically start in CentOS
+  service:
+    name: httpd
+    enabled: yes
+    state: started
+  when: ansible_distribution == "CentOS"

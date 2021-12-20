@@ -1,0 +1,33 @@
+---
+# tasks file for roles/MariaDB
+
+- name: install MariaDB package in Ubuntu
+  apt:
+    name:
+      - mariadb-server
+      - mariadb-client
+    state: latest
+    update_cache: yes
+  when: ansible_distribution == "Ubuntu"
+
+- name: Set MariaDB to Enable and start in Ubuntu
+  service:
+    name: mariadb
+    enabled: yes
+    state: started
+  when: ansible_distribution == "Ubuntu"
+
+- name: install MariaDB package in centos
+  dnf:
+    name:
+      - mariadb-server
+    state: latest
+    update_cache: yes
+  when: ansible_distribution == "CentOS"
+
+- name: Set MariaDB to Enable and start in CentOS
+  service:
+    name: mariadb
+    enabled: yes
+    state: started
+  when: ansible_distribution == "CentOS"
